@@ -1,0 +1,172 @@
+<section class="vh-100" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 col-xl-7">
+        <div class="card rounded-3">
+          <div class="card-body p-4">
+            <h4 class="text-center my-3 pb-3">Task Managment System</h4>
+
+            <form
+              class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4"
+            >
+              <div class="col-12">
+                <div class="form-outline">
+                  <input type="text" id="form1" class="form-control" #name />
+                </div>
+              </div>
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  (click)="Search(name.value)"
+                >
+                  Search
+                </button>
+              </div>
+
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="btn btn-warning"
+                  (click)="GetAll()"
+                >
+                  Get tasks
+                </button>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-warning" (click)="Add()">
+                  Add tasks
+                </button>
+              </div>
+            </form>
+
+            <table class="table mb-4">
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">TimeSpent(Minutes)</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of tempTasks; let i = index">
+                  <th scope="row">{{ i + 1 }}</th>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.status }}</td>
+                  <td>{{ item.timespent | number:'1.1-2' }}</td>
+                  <td>
+                    <button
+                      type="submit"
+                      class="btn btn-danger m-1"
+                      (click)="TrackTask(item)"
+                    >
+                      Track
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn btn-danger"
+                      (click)="Delete(item)"
+                    >
+                      Delete
+                    </button>
+                    <button
+                      type="submit"
+                      class="btn btn-primary ms-1"
+                      (click)="Edit(item)"
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div *ngIf="IsTracked" class="d-flex justify-content-center">
+              <Button class="btn btn-success m-2 " (click)="StartTime()">Start</Button>
+              <label class="alert alert-dark m-2 col-4 text-center">Time Spent(S) : {{endTime}}</label>
+              <Button class="btn btn-warning m-2" (click)="StopTime()">Stop</Button>
+            </div>
+            <ng-container *ngIf="IsEditable">
+              <div class="form-group">
+                <label for="">Title</label>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  class="form-control"
+                  [(ngModel)]="EditTask.title"
+                  aria-describedby="helpId"
+                />
+                <label for="">Status</label>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  class="form-control"
+                  [(ngModel)]="EditTask.status"
+                  aria-describedby="helpId"
+                />
+                <label for="">TimeSpent</label>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  class="form-control"
+                  [(ngModel)]="EditTask.timespent"
+                  aria-describedby="helpId"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="EditChanges()"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="IsAdd">
+              <div class="form-group">
+                <label for="">Title</label>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  class="form-control"
+                  [(ngModel)]="AddTask.title"
+                  aria-describedby="helpId"
+                />
+                <label for="">Status</label>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  class="form-control"
+                  [(ngModel)]="AddTask.status"
+                  aria-describedby="helpId"
+                />
+                <label for="">TimeSpent</label>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  class="form-control"
+                  [(ngModel)]="AddTask.timespent"
+                  aria-describedby="helpId"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="AddChanges()"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
